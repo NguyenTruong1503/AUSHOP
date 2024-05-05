@@ -81,9 +81,21 @@ public class AccountController {
 		return new ModelAndView("forward:/admin/account");
 	}
 	
+//	public void upload(MultipartFile file, String dir) throws IOException {
+//		Path path = Paths.get(dir);
+//		InputStream inputStream = file.getInputStream();
+//		Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+//	}
 	public void upload(MultipartFile file, String dir) throws IOException {
-		Path path = Paths.get(dir);
-		InputStream inputStream = file.getInputStream();
-		Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+	    Path path = Paths.get(dir);
+	    
+	    // Kiểm tra xem đường dẫn có tồn tại và là một thư mục không
+	    if (!Files.exists(path) || !Files.isDirectory(path)) {
+	        throw new IllegalArgumentException("Đường dẫn không hợp lệ.");
+	    }
+	    
+	    InputStream inputStream = file.getInputStream();
+	    Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
 	}
+
 }

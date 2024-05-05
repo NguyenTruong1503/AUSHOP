@@ -304,13 +304,22 @@ public class SanPhamController {
 
 //upload(photo, "uploads/products/", p.getHinhAnh());
 	// save file
+//	public void upload(MultipartFile file, String dir, String name) throws IOException {
+//		Path path = Paths.get(dir);
+//		if (!Files.exists(path))
+//			Files.createDirectories(path);
+//		InputStream inputStream = file.getInputStream();
+//		Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+//	}
+	
 	public void upload(MultipartFile file, String dir, String name) throws IOException {
-		Path path = Paths.get(dir);
-		if (!Files.exists(path))
-			Files.createDirectories(path);
-		InputStream inputStream = file.getInputStream();
-		Files.copy(inputStream, path.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+	    Path path = Paths.get(dir);
+	    if (!Files.exists(path))
+	        Files.createDirectories(path);
+	    InputStream inputStream = file.getInputStream();
+	    Files.copy(inputStream, path.resolve(name), StandardCopyOption.REPLACE_EXISTING);
 	}
+
 
 	// kiem tra ten san pham
 	public Boolean check(String name) {
